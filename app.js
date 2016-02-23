@@ -2,7 +2,8 @@ function picture (name, imgsrc, imgtype) {
   this.name = name;
   this.id= imgsrc;
   this.imgsrc= 'img/' + imgsrc + imgtype;
-  this.clicked= 0
+  this.clicked= 0;
+  this.displayed= 0;
 }
 
 var bag = new picture ('bag', 'bag', '.jpg');
@@ -67,20 +68,32 @@ function buildPage (){
   imagePlace.appendChild(twoEl);
   imagePlace.appendChild(threeEl);
 
+  stuff[arrayRandoms[0]].displayed++;
+  stuff[arrayRandoms[1]].displayed++;
+  stuff[arrayRandoms[2]].displayed++;
 }
 buildPage();
+listenClick();
+
+
 
 function clickChoice (event) {
+  event.preventDefault();
   for (i=0; i<stuff.length; i++) {
     if (this.id === stuff[i].id){
       stuff[i].clicked++;
     }
   }
   console.log(this.id);
-  event.preventDefault();
+  var imagePlace = document.getElementById('pictures');
+  imagePlace.textContent='';
+  buildPage();
+  listenClick();
 }
 
-var image = document.getElementsByTagName('img');
-for (var i=0; i<image.length; i++) {
-  image[i].addEventListener('click', clickChoice)
+function listenClick () {
+  var image = document.getElementsByTagName('img');
+  for (var i=0; i<image.length; i++) {
+    image[i].addEventListener('click', clickChoice)
+  }
 }
