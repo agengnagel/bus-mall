@@ -1,14 +1,14 @@
-function picture (name, imgsrc) {
+function picture (name, imgsrc, imgtype) {
   this.name = name;
   this.id= imgsrc;
-  this.imgsrc= 'img/' + imgsrc + '.jpg';
+  this.imgsrc= 'img/' + imgsrc + imgtype;
 }
 
-var bag = new picture ('bag', 'bag');
-var banana = new picture ('banana','banana');
-var bathroom = new picture ('bathroom', 'bathroom');
-var boots= new picture ('boots', 'boots');
-var breakfast= new picture ('breakfast', 'breakfast');
+var bag = new picture ('bag', 'bag', '.jpg');
+var banana = new picture ('banana','banana','.jpg');
+var bathroom = new picture ('bathroom', 'bathroom', '.jpg');
+var boots= new picture ('boots', 'boots', '.jpg');
+var breakfast= new picture ('breakfast', 'breakfast', '.jpg');
 
 var stuff = [bag,banana,bathroom,boots,breakfast];
 
@@ -36,7 +36,7 @@ function randomCombination () {
 
 function buildPage (){
   var arrayRandoms = randomCombination();
-  console.log(arrayRandoms);
+  // console.log(arrayRandoms);
   var oneEl = document.getElementById('one');
   var twoEl = document.getElementById('two');
   var threeEl = document.getElementById('three');
