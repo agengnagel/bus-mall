@@ -30,9 +30,10 @@ var wineglass= new picture ('wineglass', 'wine-glass', '.jpg');
 var stuff = [bag, banana, bathroom, boots, breakfast, bubblegum, chair, cthulhu, dogduck, dragon, pen, petsweep, scissors, shark, sweep, tauntaun, unicorn, usb, watercan, wineglass];
 
 function randomNumber () {
-  var random= Math.floor(Math.random() *stuff.length);
-  return random;
+  return Math.floor(Math.random() *stuff.length);
 };
+
+
 
 function randomCombination () {
   var random1= randomNumber();
@@ -51,34 +52,35 @@ function randomCombination () {
   return arrayRandoms;
 }
 
+var pageCount= 0
 function buildPage (){
-  var arrayRandoms = randomCombination();
-  var imagePlace = document.getElementById('pictures');
-  var oneEl= document.createElement('img');
-  oneEl.src= stuff[arrayRandoms[0]].imgsrc;
-  oneEl.setAttribute('id', stuff[arrayRandoms[0]].id);
-  var twoEl= document.createElement('img');
-  twoEl.src= stuff[arrayRandoms[1]].imgsrc;
-  twoEl.setAttribute('id', stuff[arrayRandoms[1]].id);
-  var threeEl= document.createElement('img');
-  threeEl.src= stuff[arrayRandoms[2]].imgsrc;
-  threeEl.setAttribute('id', stuff[arrayRandoms[2]].id);
+  if (pageCount <25) {
+    var arrayRandoms = randomCombination();
+    var imagePlace = document.getElementById('pictures');
+    var oneEl= document.createElement('img');
+    oneEl.src= stuff[arrayRandoms[0]].imgsrc;
+    oneEl.setAttribute('id', stuff[arrayRandoms[0]].id);
+    var twoEl= document.createElement('img');
+    twoEl.src= stuff[arrayRandoms[1]].imgsrc;
+    twoEl.setAttribute('id', stuff[arrayRandoms[1]].id);
+    var threeEl= document.createElement('img');
+    threeEl.src= stuff[arrayRandoms[2]].imgsrc;
+    threeEl.setAttribute('id', stuff[arrayRandoms[2]].id);
 
-  imagePlace.appendChild(oneEl);
-  imagePlace.appendChild(twoEl);
-  imagePlace.appendChild(threeEl);
+    imagePlace.appendChild(oneEl);
+    imagePlace.appendChild(twoEl);
+    imagePlace.appendChild(threeEl);
 
-  stuff[arrayRandoms[0]].displayed++;
-  stuff[arrayRandoms[1]].displayed++;
-  stuff[arrayRandoms[2]].displayed++;
+    stuff[arrayRandoms[0]].displayed++;
+    stuff[arrayRandoms[1]].displayed++;
+    stuff[arrayRandoms[2]].displayed++;
+
+    pageCount +=1;
+  }
 }
 buildPage();
-listenClick();
 
-
-
-function clickChoice (event) {
-  event.preventDefault();
+function clickChoice () {
   for (i=0; i<stuff.length; i++) {
     if (this.id === stuff[i].id){
       stuff[i].clicked++;
@@ -92,8 +94,9 @@ function clickChoice (event) {
 }
 
 function listenClick () {
-  var image = document.getElementsByTagName('img');
-  for (var i=0; i<image.length; i++) {
-    image[i].addEventListener('click', clickChoice)
+  var displayedImages = document.getElementsByTagName('img');
+  for (var i=0; i<displayedImages.length; i++) {
+    displayedImages[i].addEventListener('click', clickChoice)
   }
 }
+listenClick();
