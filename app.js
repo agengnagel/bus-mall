@@ -2,6 +2,7 @@ function picture (name, imgsrc, imgtype) {
   this.name = name;
   this.id= imgsrc;
   this.imgsrc= 'img/' + imgsrc + imgtype;
+  this.clicked= 0
 }
 
 var bag = new picture ('bag', 'bag', '.jpg');
@@ -70,12 +71,16 @@ function buildPage (){
 buildPage();
 
 function clickChoice (event) {
-  console.log(event);
+  for (i=0; i<stuff.length; i++) {
+    if (this.id === stuff[i].id){
+      stuff[i].clicked++;
+    }
+  }
   console.log(this.id);
   event.preventDefault();
 }
 
 var image = document.getElementsByTagName('img');
-for (i=0; i<image.length; i++) {
+for (var i=0; i<image.length; i++) {
   image[i].addEventListener('click', clickChoice)
 }
