@@ -1,7 +1,8 @@
-var myBarChart= new Chart(ctx).Bar(data,options)
 
-var barData = {
+
+var barElements = {
   labels: ['bag', 'banana', 'bathroom', 'boots', 'breakfast', 'bubblegum', 'chair', 'cthulhu', 'dogduck', 'dragon', 'pen', 'petsweep', 'scissors', 'shark', 'sweep', 'tauntaun', 'unicorn', 'usb', 'watercan', 'wineglass'],
+
   datasets: [
     {
       label: 'My First dataset',
@@ -9,7 +10,7 @@ var barData = {
       strokeColor: 'rgba(220,220,220,0.8)',
       highlightFill: 'rgba(220,220,220,0.75)',
       highlightStroke: 'rgba(220,220,220,1)',
-      data: arrayRandoms
+      data: arrayForHoldingCharJSData
     },
   ]
 };
