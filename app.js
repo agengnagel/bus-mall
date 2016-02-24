@@ -55,7 +55,7 @@ function randomCombination () {
 var pageLoadCount = 0;
 
 function buildPage (){
-  if (pageLoadCount < 4) {
+  if (pageLoadCount < 25) {
     var arrayRandoms = randomCombination();
     var imagePlace = document.getElementById('pictures');
     var oneEl= document.createElement('img');
@@ -124,7 +124,6 @@ function makeChart () {
         strokeColor: '#ff3399',
         highlightFill: '#ffb3d9',
         highlightStroke: '#ffb3d9',
-        legendTemplate : '<ul class=\'<%=name.toLowerCase()%>-legend\'><% for (var i=0; i<datasets.length; i++){%><li><span style=\'background-color:<%=datasets[i].fillColor%>\'></span><%if(datasets[i].label){%><%=datasets[i].label%><%}%></li><%}%></ul>'
         data: arrayforclickedData
       },
       {
@@ -133,13 +132,14 @@ function makeChart () {
         strokeColor: '#005ce6',
         highlightFill: '#99c2ff',
         highlightStroke: '#99c2ff',
-        legendTemplate : '<ul class=\'<%=name.toLowerCase()%>-legend\'><% for (var i=0; i<datasets.length; i++){%><li><span style=\'background-color:<%=datasets[i].fillColor%>\'></span><%if(datasets[i].label){%><%=datasets[i].label%><%}%></li><%}%></ul>'
         data: arrayfordisplayedData
       },
     ]
   };
   var canvas = document.getElementById('myBarChart');
   var ctx = canvas.getContext('2d');
-  new Chart(ctx).Bar(barElements);
+  new Chart(ctx).Bar(barElements, {
+    multiTooltipTemplate: '<%= datasetLabel %> - <%= value %>'
+  });
 
 }
