@@ -33,7 +33,23 @@ function randomNumber () {
   return Math.floor(Math.random() *stuff.length);
 };
 
+//check local storage
+function checkLocalStorage () {
+  if (window.localStorage !== 0) {
+    var storedString = localStorage.getItem('store products');
+    var retrievedData = JSON.parse(storedString);
+    for (i=0;i<retrievedData.length;i++) {
+      stuff[i].clicked = retrievedData[i].clicked;
+      stuff[i].displayed = retrievedData[i].displayed;
+    }
+  }
+}
 
+// SET local storage to get clicked data on EACH object
+function setLocalStorage () {
+  var stringifiedObjectArray = JSON.stringify(stuff);
+  localStorage.setItem('store products', stringifiedObjectArray);
+}
 
 function randomCombination () {
   var random1= randomNumber();
@@ -42,11 +58,9 @@ function randomCombination () {
 
   while (random1 === random2) {
     random2= randomNumber();
-    // console.log(random2);
   }
   while (random3 == random2 || random3 === random1) {
     random3= randomNumber();
-    // console.log(random3);
   }
   var arrayRandoms= [random1,random2,random3];
   return arrayRandoms;
@@ -76,20 +90,22 @@ function buildPage (){
     stuff[arrayRandoms[1]].displayed++;
     stuff[arrayRandoms[2]].displayed++;
 
+    setLocalStorage();
+
     pageLoadCount +=1;
   } else {
     makeChart();
   }
 }
-buildPage();
-
 
 function clickChoice () {
   for (i=0; i<stuff.length; i++) {
     if (this.id === stuff[i].id){
       stuff[i].clicked++;
     }
+    setLocalStorage();
   }
+
   console.log(this.id);
   var imagePlace = document.getElementById('pictures');
   imagePlace.textContent='';
@@ -97,13 +113,13 @@ function clickChoice () {
   listenClick();
 }
 
+
 function listenClick () {
   var displayedImages = document.getElementsByTagName('img');
   for (var i=0; i<displayedImages.length; i++) {
-    displayedImages[i].addEventListener('click', clickChoice)
+    displayedImages[i].addEventListener('click', clickChoice);
   }
 }
-listenClick();
 
 
 function makeChart () {
@@ -143,3 +159,7 @@ function makeChart () {
   });
 
 }
+
+checkLocalStorage();
+buildPage();
+listenClick();
